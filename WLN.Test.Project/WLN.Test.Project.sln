@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WLN.Test.Project.Web", "WLN
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WLN.Test.Project.Logic", "WLN.Test.Project.Logic\WLN.Test.Project.Logic.csproj", "{EA601945-F6F3-4E81-A98F-41272E3436C9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WLN.Test.Project.Model", "WLN.Test.Project.Model\WLN.Test.Project.Model.csproj", "{1A129B88-5035-4DC8-82B5-903C907A04E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{EA601945-F6F3-4E81-A98F-41272E3436C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA601945-F6F3-4E81-A98F-41272E3436C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA601945-F6F3-4E81-A98F-41272E3436C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A129B88-5035-4DC8-82B5-903C907A04E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A129B88-5035-4DC8-82B5-903C907A04E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A129B88-5035-4DC8-82B5-903C907A04E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A129B88-5035-4DC8-82B5-903C907A04E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
