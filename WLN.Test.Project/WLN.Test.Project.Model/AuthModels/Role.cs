@@ -6,7 +6,35 @@ using System.Threading.Tasks;
 
 namespace WLN.Test.Project.Model.AuthModels
 {
-    class Role : BaseClass
+    public class Role : NamedEntity
     {
+        private IEnumerable<User> _users;
+
+        #region ctors
+
+        public Role()
+        {
+            _users = new List<User>();
+        }
+
+        public Role(string name)
+            : this()
+        {
+            Name = name;
+        } 
+
+        #endregion
+
+        public virtual IEnumerable<User> Users
+        {
+            get
+            {
+                return _users;
+            }
+            set
+            {
+                _users = value;
+            }
+        }
     }
 }
