@@ -7,8 +7,10 @@ namespace WLN.Test.Project.DAL.Mappings
     {
         public RoleMap()
         {
+            Schema("[Membership]");
+            Table("[Role]");
             Map(x => x.Id);
-            Map(x => x.Name);
+            Map(x => x.Name).Length(128).Not.Nullable(); ;
         }
     }
 }
