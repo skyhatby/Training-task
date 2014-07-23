@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WLN.Test.Project.Model.AuthModels
 {
-    public class Role : EntityWhithName
+    public class Role : EntityWhithName<int>
     {
         public const int Undefined = 0;
         public const int Administrator = 1;

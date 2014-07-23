@@ -6,7 +6,7 @@ using WLN.Test.Project.Helpers;
 
 namespace WLN.Test.Project.Model.AuthModels
 {
-    public class User : EntityWhithName
+    public class User : EntityWhithName<long>
     {
         private IEnumerable<Role> _roles;
 

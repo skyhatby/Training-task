@@ -8,6 +8,6 @@ namespace WLN.Test.Project.Model
 {
     public class Entity<T> : Entity
     {
-        public virtual T Id { get; protected set; }
+        public virtual T Id { get; set; }
     }
 }

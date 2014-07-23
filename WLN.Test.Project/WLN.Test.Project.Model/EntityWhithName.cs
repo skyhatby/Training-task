@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace WLN.Test.Project.Model
 {
-    public class EntityWhithName : Entity<long>
+    /// <summary>
+    /// T is the type of Id of the Entity
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class EntityWhithName<T> : Entity<T>
     {
         public virtual string Name { get; set; }
     }
