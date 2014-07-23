@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WLN.Test.Project.Model
 {
-    public class NamedEntity : Entity<int>
+    public class EntityWhithName : Entity<long>
     {
         public virtual string Name { get; set; }
     }
