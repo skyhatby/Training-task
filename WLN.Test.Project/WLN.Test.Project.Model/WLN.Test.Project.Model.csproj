@@ -41,7 +41,7 @@
   <ItemGroup>
     <Compile Include="AuthModels\Role.cs" />
     <Compile Include="AuthModels\User.cs" />
-    <Compile Include="NamedEntity.cs" />
+    <Compile Include="EntityWhithName.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Entity`1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
