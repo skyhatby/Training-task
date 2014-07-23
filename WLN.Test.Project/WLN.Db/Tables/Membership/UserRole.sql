@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [Membership].[UserRole]
 (
     [UserId]            BIGINT          NOT NULL,
-    [RoleId]            BIGINT             NOT NULL,
+    [RoleId]            INT             NOT NULL,
 
     CONSTRAINT [PK_UserRole] PRIMARY KEY CLUSTERED ([UserId], [RoleId]),
     CONSTRAINT [FK_UserRole_To_User] FOREIGN KEY ([UserId]) REFERENCES [Membership].[User]([Id]),
