@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WLN.Test.Project.DAL", "WLN
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WLN.Test.Project.Helpers", "WLN.Test.Project.Helpers\WLN.Test.Project.Helpers.csproj", "{F6E8B955-4C55-4E95-A0C7-397E254D81E2}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "WLN.Db", "WLN.Db\WLN.Db.sqlproj", "{BD67E855-59BC-4418-AB9C-F428438E1E8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,12 @@ Global
 		{F6E8B955-4C55-4E95-A0C7-397E254D81E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6E8B955-4C55-4E95-A0C7-397E254D81E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6E8B955-4C55-4E95-A0C7-397E254D81E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD67E855-59BC-4418-AB9C-F428438E1E8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD67E855-59BC-4418-AB9C-F428438E1E8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD67E855-59BC-4418-AB9C-F428438E1E8C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{BD67E855-59BC-4418-AB9C-F428438E1E8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD67E855-59BC-4418-AB9C-F428438E1E8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD67E855-59BC-4418-AB9C-F428438E1E8C}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
