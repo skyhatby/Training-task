@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 
 namespace WLN.Test.Project.Model.AuthModels
 {
-    public class Role : NamedEntity
+    public class Role : EntityWhithName
     {
-        private IEnumerable<User> _users;
+        public const int Undefined = 0;
+        public const int Administrator = 1;
+        public const int User = 2;
 
         #region ctors
 
         public Role()
         {
-            _users = new List<User>();
         }
 
         public Role(string name)
@@ -25,16 +26,6 @@ namespace WLN.Test.Project.Model.AuthModels
 
         #endregion
 
-        public virtual IEnumerable<User> Users
-        {
-            get
-            {
-                return _users;
-            }
-            set
-            {
-                _users = value;
-            }
-        }
+        
     }
 }

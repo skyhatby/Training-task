@@ -2,44 +2,45 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using WLN.Test.Project.Helpers;
 
 namespace WLN.Test.Project.Model.AuthModels
 {
-    public class User : NamedEntity
+    public class User : EntityWhithName
     {
-        private string _password;
+        private IEnumerable<Role> _roles;
 
-        #region ctors
+        public virtual string Password { get; set; }
+        public virtual string PasswordSalt { get; set; }
 
-        public User()
+        public virtual IEnumerable<Role> Roles
         {
-            PasswordSault = UsersHelper.GeneratePassword();
+            get { return _roles ?? (_roles = new HashSet<Role>()); }
+            set { _roles = value; }
         }
 
-        public User(string name, string pass)
-            : this()
+        public virtual bool VerifyPassword(string password)
         {
-            Name = name;
-            Password = pass;
+            return !string.IsNullOrEmpty(password) && Password == UsersHelper.GetHash(password, PasswordSalt);
         }
 
-        public User(string name, string pass, Role role)
-            : this(name, pass)
+        public virtual void SetPassword(string password)
         {
-            Role = role;
-        } 
-
-        #endregion
-
-        public virtual string PasswordSault { get; private set; }
-        public virtual string Password
-        {
-            get { return _password; }
-            set { _password = UsersHelper.GetHash(value, PasswordSault); }
+            PasswordSalt = UsersHelper.GeneratePassword();
+            Password = UsersHelper.GetHash(password, PasswordSalt);
         }
 
-        public virtual Role Role { get; set; }
+        /// <exception cref="System.ArgumentNullException"></exception>
+        public virtual bool IsInRole(string roleName)
+        {
+            Expect.ArgumentNotNull(roleName, "roleName");
+
+            return Roles.Any(x => x.Name.Equals(roleName, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public virtual bool IsInRole(int roleId)
+        {
+            return Roles.Any(x => x.Id == roleId);
+        }
     }
 }
