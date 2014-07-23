@@ -51,11 +51,19 @@
     <Compile Include="Mappings\RoleMap.cs" />
     <Compile Include="Mappings\UserMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\Repository`2.cs" />
+    <Compile Include="SessionFactoryManager.cs" />
+    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WLN.Test.Project.Helpers\WLN.Test.Project.Helpers.csproj">
+      <Project>{f6e8b955-4c55-4e95-a0c7-397e254d81e2}</Project>
+      <Name>WLN.Test.Project.Helpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WLN.Test.Project.Model\WLN.Test.Project.Model.csproj">
       <Project>{1a129b88-5035-4dc8-82b5-903c907a04e3}</Project>
       <Name>WLN.Test.Project.Model</Name>
