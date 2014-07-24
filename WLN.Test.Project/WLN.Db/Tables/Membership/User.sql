@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [Membership].[User]
 (
 	[Id] BIGINT NOT NULL  IDENTITY,
+	[Name] NVARCHAR(128) NOT NULL,
     [Password] NVARCHAR(128) NOT NULL, 
     [PasswordSalt] NVARCHAR(128) NOT NULL,
 
