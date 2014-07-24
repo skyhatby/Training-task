@@ -1,5 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
-using WLN.Test.Project.Model.AuthModels;
+using WLN.Test.Project.Model.MemberhshipModels;
 
 namespace WLN.Test.Project.DAL.Mappings
 {

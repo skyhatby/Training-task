@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using WLN.Test.Project.DAL.Repositories;
 using WLN.Test.Project.Model;
-using WLN.Test.Project.Model.AuthModels;
+using WLN.Test.Project.Model.MemberhshipModels;
 using WLN.Test.Project.Model.Exceptions;
 using WLN.Test.Project.Model.Repositories;
 
