@@ -39,8 +39,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Common\BaseService.cs" />
+    <Compile Include="Common\IService.cs" />
+    <Compile Include="Membership\Intarfaces\IMembershipService.cs" />
+    <Compile Include="Membership\MembershipService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WLN.Test.Project.Helpers\WLN.Test.Project.Helpers.csproj">
+      <Project>{f6e8b955-4c55-4e95-a0c7-397e254d81e2}</Project>
+      <Name>WLN.Test.Project.Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WLN.Test.Project.Model\WLN.Test.Project.Model.csproj">
+      <Project>{1a129b88-5035-4dc8-82b5-903c907a04e3}</Project>
+      <Name>WLN.Test.Project.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

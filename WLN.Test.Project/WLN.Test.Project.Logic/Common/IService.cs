@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WLN.Test.Project.Logic
+namespace WLN.Test.Project.Logic.Common
 {
-    public class Class1
+    public interface IService
     {
     }
 }
