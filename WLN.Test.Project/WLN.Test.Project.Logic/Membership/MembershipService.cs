@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WLN.Test.Project.Logic.Common;
 using WLN.Test.Project.Logic.Membership.Intarfaces;
+using WLN.Test.Project.Model;
 using WLN.Test.Project.Model.Exceptions;
 using WLN.Test.Project.Model.MemberhshipModels;
 
@@ -12,6 +13,11 @@ namespace WLN.Test.Project.Logic.Membership
 {
     public class MembershipService : BaseService, IMembershipService
     {
+        public MembershipService(IUnitOfWork unitOfWork, IRepositoryFactory repositoryFactory)
+            : base(unitOfWork, repositoryFactory)
+        {
+        }
+
         /// <exception cref="Auction.Services.Common.ServiceException"></exception>
         public Role GetRoleByName(string roleName)
         {
