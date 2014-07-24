@@ -1,17 +1,18 @@
 ﻿using System;
+using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WLN.Test.Project.Logic.Membership.Intarfaces;
 
 namespace WLN.Test.Project.UnitTests
 {
     [TestClass]
-    public class MembershipServiceTests
+    public class MembershipServiceTests : BaseTest
     {
         private IMembershipService _membershipService;
 
-        public MembershipServiceTests(IMembershipService membershipService)
+        public MembershipServiceTests()
         {
-            _membershipService = membershipService;
+            _membershipService = DependencyResolver.Resolve<IMembershipService>();
         }
 
         [TestMethod]
@@ -19,8 +20,6 @@ namespace WLN.Test.Project.UnitTests
         {
             var role = _membershipService.GetRoleByName("Administrator");
             Assert.IsNotNull(role);
-
-            role.Dump();
         }
     }
 }
