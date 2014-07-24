@@ -1,4 +1,4 @@
-﻿using WLN.Test.Project.Model.AuthModels;
+﻿using WLN.Test.Project.Model.MemberhshipModels;
 using WLN.Test.Project.Model.Repositories;
 
 namespace WLN.Test.Project.Model

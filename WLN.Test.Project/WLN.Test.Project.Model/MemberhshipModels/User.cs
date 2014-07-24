@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using WLN.Test.Project.Helpers;
 
-namespace WLN.Test.Project.Model.AuthModels
+namespace WLN.Test.Project.Model.MemberhshipModels
 {
     public class User : EntityWhithName<long>
     {

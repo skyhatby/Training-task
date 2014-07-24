@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WLN.Test.Project.Model.AuthModels
+namespace WLN.Test.Project.Model.MemberhshipModels
 {
     public class Role : EntityWhithName<int>
     {
