@@ -1,6 +1,11 @@
 using System;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
+using WLN.Test.Project.Logic.Membership.Intarfaces;
+using WLN.Test.Project.Logic.Membership;
+using WLN.Test.Project.Model;
+using WLN.Test.Project.DAL;
+using NHibernate;
 
 namespace WLN.Test.Project.Web.App_Start
 {
@@ -37,6 +42,11 @@ namespace WLN.Test.Project.Web.App_Start
 
             // TODO: Register your types here
             // container.RegisterType<IProductRepository, ProductRepository>();
+            container.RegisterType<IMembershipService, MembershipService>();
+            container.RegisterType<IUnitOfWork, UnitOfWork>();
+            container.RegisterType<IRepositoryFactory, UnitOfWork>();
+            container.RegisterInstance<ISessionFactory>(SessionFactoryManager.GetSessionFactory());
+            container.RegisterType<ISession>(new InjectionFactory(c => c.Resolve<ISessionFactory>().OpenSession()));
         }
     }
 }
