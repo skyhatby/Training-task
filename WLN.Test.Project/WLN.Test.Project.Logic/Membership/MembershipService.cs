@@ -80,7 +80,7 @@ namespace WLN.Test.Project.Logic.Membership
             }
             user = new User { Name = name };
             user.SetPassword(password);
-            //user.Roles.Add(role);
+            user.Roles.Add(role);
             var userRepository = RepositoryFactory.UserRepository;
             userRepository.Create(user);
             UnitOfWork.Commit();

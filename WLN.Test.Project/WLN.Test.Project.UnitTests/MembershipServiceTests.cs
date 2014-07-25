@@ -41,7 +41,7 @@ namespace WLN.Test.Project.UnitTests
         [TestMethod]
         public void ResetUserPassword()
         {
-            var name = "asdf";
+            var name = "sdf";
             var pass1 = _membershipService.GetUserByName(name).Password;
             _membershipService.ResetPassword(name);
             var pass2 = _membershipService.GetUserByName(name).Password;
