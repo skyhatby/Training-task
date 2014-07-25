@@ -2,6 +2,7 @@
 using NHibernate.Linq;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -73,9 +74,11 @@ namespace WLN.Test.Project.DAL.Repositories
         public void Create(TEntity entity)
         {
             Expect.ArgumentNotNull(entity, "entity");
-
-            // as we use transactions, exceptions will be generated during Commit()
-            Session.Save(entity);
+            using (var transaction = Session.BeginTransaction(IsolationLevel.ReadCommitted))
+            {
+                Session.Save(entity);
+                transaction.Commit();
+            }
         }
 
         /// <exception cref="System.ArgumentNullException"><paramref name="entity" /> is null.</exception>
