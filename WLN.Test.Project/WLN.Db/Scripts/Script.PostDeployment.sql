@@ -9,9 +9,13 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
---Role
-if not exists (select * from [Membership].[Role] where [Name] =  N'Administrator')
-    INSERT [Membership].[Role] ([Name]) VALUES ( N'Administrator')
+-- HiLo Table Data
+if not exists (select * from [dbo].[HiLo] where [TableName] = N'User')
+    INSERT [dbo].[HiLo] ([TableName], [NextHi]) VALUES (N'User', 1)
 
-if not exists (select * from [Membership].[Role] where [Name] = N'User')
-    INSERT [Membership].[Role] ([Name]) VALUES ( N'User')
+--Role
+if not exists (select * from [Membership].[Role] where [Id] = 1)
+    INSERT [Membership].[Role] ([Id], [Name]) VALUES (1, N'Administrator')
+
+if not exists (select * from [Membership].[Role] where [Id] = 2)
+    INSERT [Membership].[Role] ([Id], [Name]) VALUES (2, N'User')

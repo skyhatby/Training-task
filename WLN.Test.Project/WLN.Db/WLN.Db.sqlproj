@@ -67,6 +67,7 @@
     <Build Include="Tables\Membership\User.sql" />
     <Build Include="Tables\Membership\Role.sql" />
     <Build Include="Tables\Membership\UserRole.sql" />
+    <Build Include="Tables\HiLo.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />

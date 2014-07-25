@@ -9,7 +9,8 @@ namespace WLN.Test.Project.DAL.Mappings
         {
             Schema("[Membership]");
             Table("[User]");
-            Id(x => x.Id).GeneratedBy.Increment();
+            Id(x => x.Id).GeneratedBy.HiLo("[dbo].[HiLo]", "NextHi", "100");
+
             Map(x => x.Name).Length(128).Not.Nullable();
             Map(x => x.Password).Length(128).Not.Nullable();
             Map(x => x.PasswordSalt).Length(128).Not.Nullable();
