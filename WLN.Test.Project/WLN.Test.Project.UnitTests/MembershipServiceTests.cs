@@ -21,5 +21,31 @@ namespace WLN.Test.Project.UnitTests
             var role = _membershipService.GetRoleByName("Administrator");
             Assert.IsNotNull(role);
         }
+
+        [TestMethod]
+        public void RegisterUser()
+        {
+            var name = "sdf";
+            var user = _membershipService.RegisterUser(name, "password", "User");
+            Assert.IsNotNull(user);
+        }
+
+        [TestMethod]
+        public void GetUserByName()
+        {
+            var name = "sdf";
+            var user = _membershipService.GetUserByName(name);
+            Assert.IsNotNull(user);
+        }
+
+        [TestMethod]
+        public void ResetUserPassword()
+        {
+            var name = "asdf";
+            var pass1 = _membershipService.GetUserByName(name).Password;
+            _membershipService.ResetPassword(name);
+            var pass2 = _membershipService.GetUserByName(name).Password;
+            Assert.AreNotEqual(pass1,pass2);
+        }
     }
 }
