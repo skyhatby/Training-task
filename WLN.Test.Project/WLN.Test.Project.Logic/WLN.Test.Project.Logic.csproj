@@ -42,7 +42,9 @@
     <Compile Include="Common\BaseService.cs" />
     <Compile Include="Common\IService.cs" />
     <Compile Include="Membership\Intarfaces\IMembershipService.cs" />
+    <Compile Include="Membership\MembershipError.cs" />
     <Compile Include="Membership\MembershipService.cs" />
+    <Compile Include="Membership\MembershipServiceException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -11,5 +11,10 @@ namespace WLN.Test.Project.Logic.Membership.Intarfaces
     public interface IMembershipService : IService
     {
         Role GetRoleByName(string roleName);
+        User GetUser(long userId);
+        User GetUserByName(string userName);
+        User RegisterUser(string name, string password, string roleName);
+        void UpdateUser(User user);
+        void ResetPassword(string name);
     }
 }

@@ -8,12 +8,12 @@ namespace WLN.Test.Project.Model.MemberhshipModels
 {
     public class User : EntityWhithName<long>
     {
-        private IEnumerable<Role> _roles;
+        private ICollection<Role> _roles;
 
         public virtual string Password { get; set; }
         public virtual string PasswordSalt { get; set; }
 
-        public virtual IEnumerable<Role> Roles
+        public virtual ICollection<Role> Roles
         {
             get { return _roles ?? (_roles = new HashSet<Role>()); }
             set { _roles = value; }
