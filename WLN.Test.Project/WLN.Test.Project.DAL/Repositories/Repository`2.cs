@@ -22,7 +22,7 @@ namespace WLN.Test.Project.DAL.Repositories
         {
         }
 
-        /// <exception cref="Auction.Core.Exceptions.RepositoryException"></exception>
+        /// <exception cref="WLN.Test.Project.Model.Exceptions.RepositoryException"></exception>
         public TEntity Find(TKey id)
         {
             try
@@ -40,7 +40,7 @@ namespace WLN.Test.Project.DAL.Repositories
         }
 
         /// <exception cref="System.ArgumentNullException"><paramref name="predicate" /> is null.</exception>
-        /// <exception cref="Auction.Core.Exceptions.RepositoryException"></exception>
+        /// <exception cref="WLN.Test.Project.Model.Exceptions.RepositoryException"></exception>
         public TEntity Find(Expression<Func<TEntity, bool>> predicate)
         {
             Expect.ArgumentNotNull(predicate, "predicate");

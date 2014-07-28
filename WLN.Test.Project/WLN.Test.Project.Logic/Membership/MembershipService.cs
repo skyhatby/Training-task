@@ -18,7 +18,7 @@ namespace WLN.Test.Project.Logic.Membership
         {
         }
 
-        /// <exception cref="Auction.Services.Common.ServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
         public Role GetRoleByName(string roleName)
         {
             var roleRepository = RepositoryFactory.RoleRepository;
@@ -33,7 +33,7 @@ namespace WLN.Test.Project.Logic.Membership
             }
         }
 
-        /// <exception cref="Auction.Services.Common.ServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
         public User GetUser(long userId)
         {
             var userRepository = RepositoryFactory.UserRepository;
@@ -48,7 +48,7 @@ namespace WLN.Test.Project.Logic.Membership
             }
         }
 
-        /// <exception cref="Auction.Services.Common.ServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
         public User GetUserByName(string userName)
         {
             var userRepository = RepositoryFactory.UserRepository;
@@ -63,9 +63,8 @@ namespace WLN.Test.Project.Logic.Membership
             }
         }
 
-        /// <exception cref="Auction.Infrastructure.Validation.ValidationException"></exception>
-        /// <exception cref="Auction.Services.Membership.MembershipServiceException"></exception>
-        /// <exception cref="Auction.Services.Common.ServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Membership.MembershipServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
         public User RegisterUser(string name, string password, string roleName)
         {
             var role = GetRoleByName(roleName);
@@ -83,12 +82,11 @@ namespace WLN.Test.Project.Logic.Membership
             user.Roles.Add(role);
             var userRepository = RepositoryFactory.UserRepository;
             userRepository.Create(user);
-            UnitOfWork.Commit();
             return user;
         }
 
-        /// <exception cref="Auction.Services.Membership.MembershipServiceException"></exception>
-        /// <exception cref="Auction.Services.Common.ServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Membership.MembershipServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
         public void ResetPassword(string name)
         {
             var user = GetUserByName(name);
@@ -101,7 +99,7 @@ namespace WLN.Test.Project.Logic.Membership
             UpdateUser(user);
         }
 
-        /// <exception cref="Auction.Services.Common.ServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
         public void UpdateUser(User user)
         {
             var userRepository = RepositoryFactory.UserRepository;

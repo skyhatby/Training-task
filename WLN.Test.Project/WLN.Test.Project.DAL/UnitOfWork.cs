@@ -39,8 +39,8 @@ namespace WLN.Test.Project.DAL
 
         #endregion
 
-        /// <exception cref="Auction.Core.Exceptions.ConcurrencyException"></exception>
-        /// <exception cref="Auction.Core.Exceptions.RepositoryException"></exception>
+        /// <exception cref="WLN.Test.Project.Model.Exceptions.ConcurrencyException"></exception>
+        /// <exception cref="WLN.Test.Project.Model.Exceptions.RepositoryException"></exception>
         public void Commit()
         {
             if (!_isDisposed && _transaction != null && _transaction.IsActive)
