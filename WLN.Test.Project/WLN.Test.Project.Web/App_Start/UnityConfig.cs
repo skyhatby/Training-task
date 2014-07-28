@@ -6,6 +6,8 @@ using WLN.Test.Project.Logic.Membership;
 using WLN.Test.Project.Model;
 using WLN.Test.Project.DAL;
 using NHibernate;
+using WLN.Test.Project.Logic.FileSystem.Interfaces;
+using WLN.Test.Project.Logic.FileSystem;
 
 namespace WLN.Test.Project.Web.App_Start
 {
@@ -43,6 +45,7 @@ namespace WLN.Test.Project.Web.App_Start
             // TODO: Register your types here
             // container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType<IMembershipService, MembershipService>();
+            container.RegisterType<IFileSystemService, FileSystemService>();
             container.RegisterType<IUnitOfWork, UnitOfWork>();
             container.RegisterType<IRepositoryFactory, UnitOfWork>();
             container.RegisterInstance<ISessionFactory>(SessionFactoryManager.GetSessionFactory());
