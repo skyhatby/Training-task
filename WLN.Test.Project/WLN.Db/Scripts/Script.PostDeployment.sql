@@ -19,3 +19,20 @@ if not exists (select * from [Membership].[Role] where [Id] = 1)
 
 if not exists (select * from [Membership].[Role] where [Id] = 2)
     INSERT [Membership].[Role] ([Id], [Name]) VALUES (2, N'User')
+
+-- Users
+if not exists (select * from [Membership].[User] where Id = 1)
+begin
+    INSERT INTO [Membership].[User]
+           ([Id]
+           ,[Name]
+           ,[Password]
+           ,[PasswordSalt])
+     VALUES
+           (1
+           ,N'skyhat'
+           ,N'597498740'
+           ,N'62676264');
+
+	INSERT INTO [Membership].[UserRole] ([UserId],[RoleId]) VALUES (1, 1);
+end;

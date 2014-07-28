@@ -25,7 +25,7 @@ namespace WLN.Test.Project.UnitTests
         [TestMethod]
         public void RegisterUser()
         {
-            var name = "sdf";
+            var name = Guid.NewGuid().ToString();
             var user = _membershipService.RegisterUser(name, "password", "User");
             Assert.IsNotNull(user);
         }
@@ -33,7 +33,7 @@ namespace WLN.Test.Project.UnitTests
         [TestMethod]
         public void GetUserByName()
         {
-            var name = "sdf";
+            var name = "skyhat";
             var user = _membershipService.GetUserByName(name);
             Assert.IsNotNull(user);
         }
@@ -41,7 +41,7 @@ namespace WLN.Test.Project.UnitTests
         [TestMethod]
         public void ResetUserPassword()
         {
-            var name = "sdf";
+            var name = "skyhat";
             var pass1 = _membershipService.GetUserByName(name).Password;
             _membershipService.ResetPassword(name);
             var pass2 = _membershipService.GetUserByName(name).Password;
