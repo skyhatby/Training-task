@@ -10,8 +10,24 @@ namespace WLN.Test.Project.Logic.FileSystem.Interfaces
 {
     public interface IFileSystemService : IService
     {
+        /// <exception cref="WLN.Test.Project.Logic.FileSystem.FileSystemServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
         IEnumerable<DirectoryInfo> GetAllFoldersFromDirectory(string path);
+
+        /// <exception cref="WLN.Test.Project.Logic.FileSystem.FileSystemServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
         IEnumerable<FileInfo> GetAllFilesFromDirectory(string path);
+
+        /// <exception cref="WLN.Test.Project.Logic.FileSystem.FileSystemServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
         FileInfo GetFileByPath(string path);
+
+        /// <exception cref="WLN.Test.Project.Logic.FileSystem.FileSystemServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
+        DirectoryInfo GetDirectoryByPath(string path);
+
+        /// <exception cref="System.IO.IOException"></exception>
+        /// <exception cref="System.UnauthorizedAccessException"></exception>
+        IEnumerable<DriveInfo> GetDrives();
     }
 }
