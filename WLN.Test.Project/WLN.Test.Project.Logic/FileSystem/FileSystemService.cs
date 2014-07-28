@@ -20,8 +20,14 @@ namespace WLN.Test.Project.Logic.FileSystem
             {
                 throw new FileSystemServiceException(FileSystemError.DirectoryDoesntExists);
             }
-
-            return dir.EnumerateDirectories();
+            try
+            {
+                return dir.EnumerateDirectories();
+            }
+            catch (UnauthorizedAccessException)
+            {
+                throw new FileSystemServiceException(FileSystemError.YouHaventAccessToTheResource);
+            }
         }
 
         /// <exception cref="WLN.Test.Project.Logic.FileSystem.FileSystemServiceException"></exception>
@@ -34,8 +40,14 @@ namespace WLN.Test.Project.Logic.FileSystem
             {
                 throw new FileSystemServiceException(FileSystemError.DirectoryDoesntExists);
             }
-
-            return dir.EnumerateFiles();
+            try
+            {
+                return dir.EnumerateFiles();
+            }
+            catch (UnauthorizedAccessException)
+            {
+                throw new FileSystemServiceException(FileSystemError.YouHaventAccessToTheResource);
+            }
         }
 
         /// <exception cref="WLN.Test.Project.Logic.FileSystem.FileSystemServiceException"></exception>
@@ -50,6 +62,28 @@ namespace WLN.Test.Project.Logic.FileSystem
             }
 
             return file;
+        }
+
+        /// <exception cref="WLN.Test.Project.Logic.FileSystem.FileSystemServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
+        public DirectoryInfo GetDirectoryByPath(string path)
+        {
+            var dir = new DirectoryInfo(path);
+
+            if (!dir.Exists)
+            {
+                throw new FileSystemServiceException(FileSystemError.DirectoryDoesntExists);
+            }
+
+            return dir;
+        }
+
+        /// <exception cref="System.IO.IOException"></exception>
+        /// <exception cref="System.UnauthorizedAccessException"></exception>
+        public IEnumerable<DriveInfo> GetDrives()
+        {
+            var drives = DriveInfo.GetDrives();
+            return drives;
         }
     }
 }
