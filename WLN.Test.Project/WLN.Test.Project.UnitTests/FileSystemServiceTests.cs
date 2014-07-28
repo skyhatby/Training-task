@@ -35,5 +35,19 @@ namespace WLN.Test.Project.UnitTests
             var c = _fileSystemService.GetFileByPath("C:\\Users\\desktop.ini");
             Assert.IsNotNull(c);
         }
+
+        [TestMethod]
+        public void GetDirectoryByPath()
+        {
+            var c = _fileSystemService.GetDirectoryByPath("C:\\Users");
+            Assert.IsNotNull(c);
+        }
+
+        [TestMethod]
+        public void GetDrives()
+        {
+            var c = _fileSystemService.GetDrives();
+            Assert.IsNotNull(c);
+        }
     }
 }
