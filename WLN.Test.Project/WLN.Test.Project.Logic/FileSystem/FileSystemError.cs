@@ -11,6 +11,7 @@ namespace WLN.Test.Project.Logic.FileSystem
         Ok,
         FileDoesntExists,
         DirectoryDoesntExists,
+        YouHaventAccessToTheResource,
         UnknownError
     }
 }
