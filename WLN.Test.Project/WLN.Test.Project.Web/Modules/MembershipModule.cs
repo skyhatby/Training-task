@@ -5,11 +5,18 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
 using WLN.Test.Project.Logic.Membership.Identity;
+using WLN.Test.Project.Logic.Membership.Intarfaces;
 
 namespace WLN.Test.Project.Web.Modules
 {
     public class MembershipModule : IHttpModule
     {
+        private IMembershipService _membershipService;
+
+        public MembershipModule(IMembershipService membershipService)
+        {
+            _membershipService = membershipService;
+        }
         private MyEventHandler _eventHandler;
        
         public void Dispose()
@@ -19,7 +26,7 @@ namespace WLN.Test.Project.Web.Modules
 
         public void Init(HttpApplication context)
         {
-            context.AuthenticateRequest += OnAuthenticateRequest;
+            context.PostAuthenticateRequest += OnPostAuthenticateRequest;
         }
 
         public event MyEventHandler MyEvent
@@ -28,7 +35,7 @@ namespace WLN.Test.Project.Web.Modules
             remove { _eventHandler -= value; }
         }
 
-        public void OnAuthenticateRequest(Object s, EventArgs e)
+        public void OnPostAuthenticateRequest(Object s, EventArgs e)
         {
             var app = s as HttpApplication;
 
@@ -40,8 +47,9 @@ namespace WLN.Test.Project.Web.Modules
                 if (t == null) return;
                 var st = t.UserData;
                 var ui = UserInfo.FromString(st);
+                string[] roles = _membershipService.GetUserRoles(ui.UserId);
                 var i = new UserIdIdentity { IsAuthenticated = true, Name = t.Name, UserId = ui.UserId };
-                var gp = new GenericPrincipal(i, null);
+                var gp = new GenericPrincipal(i, roles);
                 HttpContext.Current.User = gp;
             }
 

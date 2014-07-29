@@ -8,6 +8,8 @@ using WLN.Test.Project.DAL;
 using NHibernate;
 using WLN.Test.Project.Logic.FileSystem.Interfaces;
 using WLN.Test.Project.Logic.FileSystem;
+using System.Web;
+using WLN.Test.Project.Web.Modules;
 
 namespace WLN.Test.Project.Web.App_Start
 {
@@ -44,6 +46,7 @@ namespace WLN.Test.Project.Web.App_Start
 
             // TODO: Register your types here
             // container.RegisterType<IProductRepository, ProductRepository>();
+            container.RegisterType<IHttpModule, MembershipModule>();
             container.RegisterType<IMembershipService, MembershipService>();
             container.RegisterType<IFileSystemService, FileSystemService>();
             container.RegisterType<IUnitOfWork, UnitOfWork>();

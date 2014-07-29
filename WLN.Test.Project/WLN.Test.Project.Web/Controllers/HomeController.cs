@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -14,12 +15,10 @@ namespace WLN.Test.Project.Web.Controllers
     public class HomeController : Controller
     {
         private IFileSystemService _fileSystemService;
-        private IMembershipService _membershipService;
 
-        public HomeController(IFileSystemService fileSystemService, IMembershipService membershipService)
+        public HomeController(IFileSystemService fileSystemService)
         {
             _fileSystemService = fileSystemService;
-            _membershipService = membershipService;
         }
 
         public ActionResult Index(string path = "")
@@ -50,6 +49,7 @@ namespace WLN.Test.Project.Web.Controllers
             return null;
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -59,45 +59,10 @@ namespace WLN.Test.Project.Web.Controllers
 
         public ActionResult Contact()
         {
+            
             ViewBag.Message = "Your contact page.";
 
             return View();
-        }
-
-        [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
-        {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginViewModel model, string returnUrl)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = _membershipService.GetUserByName(model.UserName);
-
-                if (user != null && user.VerifyPassword(model.Password))
-                {
-                    var ui = new UserInfo { UserId = user.Id };
-                    var t = new FormsAuthenticationTicket(1, model.UserName, DateTime.Now, DateTime.Now.AddHours(1),
-                        model.RememberMe, ui.ToString());
-                    var s = FormsAuthentication.Encrypt(t);
-                    var c = new HttpCookie("asdf", s);
-                    Response.Cookies.Add(c);
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid username or password.");
-                }
-            }
-
-            // Появление этого сообщения означает наличие ошибки; повторное отображение формы
-            return View(model);
         }
     }
 }
