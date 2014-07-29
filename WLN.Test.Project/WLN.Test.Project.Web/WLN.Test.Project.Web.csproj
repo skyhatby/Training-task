@@ -147,7 +147,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginViewModel.cs" />
-    <Compile Include="Modules\HttpModulesInitialiser.cs" />
     <Compile Include="Modules\MembershipModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

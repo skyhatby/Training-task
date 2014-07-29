@@ -4,8 +4,10 @@ using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
+using Microsoft.Practices.Unity;
 using WLN.Test.Project.Logic.Membership.Identity;
 using WLN.Test.Project.Logic.Membership.Intarfaces;
+using WLN.Test.Project.Web.App_Start;
 
 namespace WLN.Test.Project.Web.Modules
 {
@@ -13,9 +15,9 @@ namespace WLN.Test.Project.Web.Modules
     {
         private IMembershipService _membershipService;
 
-        public MembershipModule(IMembershipService membershipService)
+        public MembershipModule()
         {
-            _membershipService = membershipService;
+            _membershipService = UnityConfig.GetConfiguredContainer().Resolve<IMembershipService>();
         }
         private MyEventHandler _eventHandler;
        
