@@ -45,7 +45,15 @@ namespace WLN.Test.Project.UnitTests
             var pass1 = _membershipService.GetUserByName(name).Password;
             _membershipService.ResetPassword(name);
             var pass2 = _membershipService.GetUserByName(name).Password;
-            Assert.AreNotEqual(pass1,pass2);
+            Assert.AreNotEqual(pass1, pass2);
+        }
+
+        [TestMethod]
+        public void CheckIfUserRolesHasAdminRole()
+        {
+            var role = _membershipService.GetUserRoles(1);
+            var b = role[0];
+            Assert.AreEqual(b, "Administrator");
         }
     }
 }

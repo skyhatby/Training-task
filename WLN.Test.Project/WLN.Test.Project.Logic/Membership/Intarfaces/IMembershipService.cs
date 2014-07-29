@@ -16,5 +16,6 @@ namespace WLN.Test.Project.Logic.Membership.Intarfaces
         User RegisterUser(string name, string password, string roleName);
         void UpdateUser(User user);
         void ResetPassword(string name);
+        string[] GetUserRoles(long userId);
     }
 }

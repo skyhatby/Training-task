@@ -49,6 +49,21 @@ namespace WLN.Test.Project.Logic.Membership
         }
 
         /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
+        public string[] GetUserRoles(long userId)
+        {
+            var userRepository = RepositoryFactory.UserRepository;
+            try
+            {
+                var user = userRepository.Find(userId);
+                return user.Roles.Select(x=>x.Name).ToArray();
+            }
+            catch (RepositoryException ex)
+            {
+                throw new ServiceException(ex.InnerException);
+            }
+        }
+
+        /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
         public User GetUserByName(string userName)
         {
             var userRepository = RepositoryFactory.UserRepository;
