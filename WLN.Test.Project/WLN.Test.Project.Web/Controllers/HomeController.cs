@@ -12,6 +12,7 @@ using WLN.Test.Project.Web.Models;
 
 namespace WLN.Test.Project.Web.Controllers
 {
+    [Authorize(Roles="User")]
     public class HomeController : Controller
     {
         private IFileSystemService _fileSystemService;
@@ -49,7 +50,6 @@ namespace WLN.Test.Project.Web.Controllers
             return null;
         }
 
-        [Authorize(Roles = "Administrator")]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

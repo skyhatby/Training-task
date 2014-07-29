@@ -12,7 +12,7 @@ using WLN.Test.Project.Logic.Membership;
 
 namespace WLN.Test.Project.Web.Controllers
 {
-    [Authorize(Roles="Administrator")]
+    [Authorize(Roles = "Administrator")]
     public class AccountController : Controller
     {
         private IMembershipService _membershipService;
@@ -46,6 +46,10 @@ namespace WLN.Test.Project.Web.Controllers
                     var s = FormsAuthentication.Encrypt(t);
                     var c = new HttpCookie("asdf", s);
                     Response.Cookies.Add(c);
+                    if (String.IsNullOrEmpty(returnUrl))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                     return Redirect(returnUrl);
                 }
                 else
@@ -79,12 +83,12 @@ namespace WLN.Test.Project.Web.Controllers
                 }
                 catch (MembershipServiceException ex)
                 {
-                    if (ex.Error == MembershipError.UserIsAlreadyRegistered) 
+                    if (ex.Error == MembershipError.UserIsAlreadyRegistered)
                     {
                         ModelState.AddModelError("", "Such user already exists");
                         return View(model);
                     }
-                    if (ex.Error == MembershipError.UnknownError) 
+                    if (ex.Error == MembershipError.UnknownError)
                     {
                         ModelState.AddModelError("", "UnknownError");
                         return View(model);
@@ -94,6 +98,14 @@ namespace WLN.Test.Project.Web.Controllers
             }
 
             return View(model);
+        }
+
+        public ActionResult LogOut()
+        {
+            var authCookie = new HttpCookie("asdf");
+                authCookie.Expires = DateTime.Now.AddDays(-1d);
+                HttpContext.Response.Cookies.Add(authCookie);
+            return RedirectToAction("Index", "Home");
         }
     }
 }
