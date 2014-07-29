@@ -35,4 +35,5 @@ begin
            ,N'62676264');
 
 	INSERT INTO [Membership].[UserRole] ([UserId],[RoleId]) VALUES (1, 1);
+	INSERT INTO [Membership].[UserRole] ([UserId],[RoleId]) VALUES (1, 2);
 end;

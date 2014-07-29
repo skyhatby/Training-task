@@ -55,7 +55,7 @@ namespace WLN.Test.Project.Logic.Membership
             try
             {
                 var user = userRepository.Find(userId);
-                return user.Roles.Select(x=>x.Name).ToArray();
+                return user.Roles.Select(x => x.Name).ToArray();
             }
             catch (RepositoryException ex)
             {
@@ -95,6 +95,7 @@ namespace WLN.Test.Project.Logic.Membership
             user = new User { Name = name };
             user.SetPassword(password);
             user.Roles.Add(role);
+            if (!user.Roles.Select(x => x.Name).Contains("User")) user.Roles.Add(GetRoleByName("User"));
             var userRepository = RepositoryFactory.UserRepository;
             userRepository.Create(user);
             return user;
