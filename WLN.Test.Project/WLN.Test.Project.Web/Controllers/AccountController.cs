@@ -11,6 +11,7 @@ using WLN.Test.Project.Web.Models;
 
 namespace WLN.Test.Project.Web.Controllers
 {
+    [Authorize(Roles="Administrator")]
     public class AccountController : Controller
     {
         private IMembershipService _membershipService;
@@ -50,6 +51,25 @@ namespace WLN.Test.Project.Web.Controllers
                 {
                     ModelState.AddModelError("", "Invalid username or password.");
                 }
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult RegisterUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RegisterUser(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                _membershipService.RegisterUser(model.UserName, model.Password);
+                return RedirectToAction("Index", "Home");
             }
 
             return View(model);

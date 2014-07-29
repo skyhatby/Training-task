@@ -80,7 +80,7 @@ namespace WLN.Test.Project.Logic.Membership
 
         /// <exception cref="WLN.Test.Project.Logic.Membership.MembershipServiceException"></exception>
         /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
-        public User RegisterUser(string name, string password, string roleName)
+        public User RegisterUser(string name, string password, string roleName = "User")
         {
             var role = GetRoleByName(roleName);
             if (role == null)

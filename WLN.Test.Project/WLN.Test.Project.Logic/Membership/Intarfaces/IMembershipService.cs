@@ -13,7 +13,7 @@ namespace WLN.Test.Project.Logic.Membership.Intarfaces
         Role GetRoleByName(string roleName);
         User GetUser(long userId);
         User GetUserByName(string userName);
-        User RegisterUser(string name, string password, string roleName);
+        User RegisterUser(string name, string password, string roleName = "User");
         void UpdateUser(User user);
         void ResetPassword(string name);
         string[] GetUserRoles(long userId);
