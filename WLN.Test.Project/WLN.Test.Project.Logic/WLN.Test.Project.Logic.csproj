@@ -45,6 +45,8 @@
     <Compile Include="FileSystem\FileSystemService.cs" />
     <Compile Include="FileSystem\FileSystemServiceException.cs" />
     <Compile Include="FileSystem\Interfaces\IFileSystemService.cs" />
+    <Compile Include="Membership\Identity\UserIdIdentity.cs" />
+    <Compile Include="Membership\Identity\UserInfo.cs" />
     <Compile Include="Membership\Intarfaces\IMembershipService.cs" />
     <Compile Include="Membership\MembershipError.cs" />
     <Compile Include="Membership\MembershipService.cs" />
