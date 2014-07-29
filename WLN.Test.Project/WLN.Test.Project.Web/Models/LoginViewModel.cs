@@ -9,15 +9,15 @@ namespace WLN.Test.Project.Web.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Имя пользователя")]
+        [Display(Name = "User Name")]
         public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Пароль")]
+        [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Display(Name = "Запомнить меня")]
+        [Display(Name = "RememberMe")]
         public bool RememberMe { get; set; }
     }
 }

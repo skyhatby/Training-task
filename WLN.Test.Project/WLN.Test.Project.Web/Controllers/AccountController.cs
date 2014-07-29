@@ -8,6 +8,7 @@ using System.Web.Security;
 using WLN.Test.Project.Logic.Membership.Identity;
 using WLN.Test.Project.Logic.Membership.Intarfaces;
 using WLN.Test.Project.Web.Models;
+using WLN.Test.Project.Logic.Membership;
 
 namespace WLN.Test.Project.Web.Controllers
 {
@@ -68,7 +69,27 @@ namespace WLN.Test.Project.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _membershipService.RegisterUser(model.UserName, model.Password);
+                try
+                {
+                    if (model.SetAdmin)
+                    {
+                        _membershipService.RegisterUser(model.UserName, model.Password, "Administrator");
+                    }
+                    else _membershipService.RegisterUser(model.UserName, model.Password);
+                }
+                catch (MembershipServiceException ex)
+                {
+                    if (ex.Error == MembershipError.UserIsAlreadyRegistered) 
+                    {
+                        ModelState.AddModelError("", "Such user already exists");
+                        return View(model);
+                    }
+                    if (ex.Error == MembershipError.UnknownError) 
+                    {
+                        ModelState.AddModelError("", "UnknownError");
+                        return View(model);
+                    }
+                }
                 return RedirectToAction("Index", "Home");
             }
 
