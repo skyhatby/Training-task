@@ -146,7 +146,8 @@ namespace WLN.Test.Project.Logic.FileSystem
             {
                 try
                 {
-                    file.Create();
+                    var fileStream = file.Create();
+                    fileStream.Close();
                 }
                 catch (UnauthorizedAccessException)
                 {
