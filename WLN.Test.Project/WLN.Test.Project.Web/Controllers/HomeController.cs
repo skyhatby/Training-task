@@ -62,6 +62,28 @@ namespace WLN.Test.Project.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult CreateFileOrFolder(string path)
+        {
+            var model = new CreateViewModel() { Name = path };
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateFileOrFolder(CreateViewModel model)
+        {
+            if (model.File)
+            {
+                _fileSystemService.CreateFile(model.Name);
+            }
+            if (model.Directory)
+            {
+                _fileSystemService.CreateDirectory(model.Name);
+            }
+            return RedirectToAction("Index");
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
