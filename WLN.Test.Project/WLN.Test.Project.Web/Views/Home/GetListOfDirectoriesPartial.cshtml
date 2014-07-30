@@ -11,4 +11,5 @@
     <a href="@Url.Action("Index", "Home", new { path = dir.FullName })">
         <h3>@dir.FullName</h3>
     </a>
+    <a href="@Url.Action("DeleteFolder", "Home", new { path = dir.FullName })" class="btn btn-danger"> Delete Folder </a>
 }

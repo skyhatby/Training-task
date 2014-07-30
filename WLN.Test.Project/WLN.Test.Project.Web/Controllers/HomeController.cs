@@ -50,6 +50,12 @@ namespace WLN.Test.Project.Web.Controllers
             return null;
         }
 
+        public ActionResult DeleteFolder(string path) 
+        {
+            _fileSystemService.DeleteDirectory(path);
+            return RedirectToAction("Index");
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
