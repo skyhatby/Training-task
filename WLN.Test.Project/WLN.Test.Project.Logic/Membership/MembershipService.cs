@@ -113,6 +113,7 @@ namespace WLN.Test.Project.Logic.Membership
             var newPassword = "111111";
             user.SetPassword(newPassword);
             UpdateUser(user);
+            UnitOfWork.Commit();
         }
 
         /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
