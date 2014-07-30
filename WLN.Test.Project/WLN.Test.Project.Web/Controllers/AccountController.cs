@@ -100,6 +100,7 @@ namespace WLN.Test.Project.Web.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         public ActionResult LogOut()
         {
             var authCookie = new HttpCookie("asdf");
