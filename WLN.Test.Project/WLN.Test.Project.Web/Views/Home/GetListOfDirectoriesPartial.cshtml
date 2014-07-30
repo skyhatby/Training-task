@@ -1,15 +1,18 @@
 ﻿@model IEnumerable<DirectoryInfo>
 
-    <div>
-        <a href="@Url.Action("Index", "Home", new { path = @ViewBag.Parent })">
-            <h3>...</h3>
-        </a>
-    </div>
+<div>
+    <a href="@Url.Action("Index", "Home", new { path = @ViewBag.Parent })">
+        <h3>...</h3>
+    </a>
+</div>
 
 @foreach (var dir in Model)
 {
     <a href="@Url.Action("Index", "Home", new { path = dir.FullName })">
         <h3>@dir.FullName</h3>
     </a>
-    <a href="@Url.Action("DeleteFolder", "Home", new { path = dir.FullName })" class="btn btn-danger"> Delete Folder </a>
+    if (User.IsInRole("Administrator"))
+    {
+        <a href="@Url.Action("DeleteFolder", "Home", new { path = dir.FullName })" class="btn btn-danger"> Delete Folder </a>
+    }
 }

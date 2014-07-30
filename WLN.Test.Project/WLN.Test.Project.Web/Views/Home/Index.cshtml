@@ -6,7 +6,7 @@
 <div class="jumbotron">
     <h1>Explorer</h1>
 </div>
-@if (!String.IsNullOrEmpty(ViewBag.CurrentDirectory))
+@if (!String.IsNullOrEmpty(ViewBag.CurrentDirectory) && User.IsInRole("Administrator"))
 {
     <a class="btn btn-success" href="@Url.Action("CreateFileOrFolder", "Home", new { path = ViewBag.CurrentDirectory })">
         Create file or folder
