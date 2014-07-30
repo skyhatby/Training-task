@@ -7,7 +7,7 @@ using WLN.Test.Project.Model.Exceptions;
 
 namespace WLN.Test.Project.Logic.FileSystem
 {
-    class FileSystemServiceException : ServiceException
+    public class FileSystemServiceException : ServiceException
     {
         public FileSystemError Error { get; private set; }
 
