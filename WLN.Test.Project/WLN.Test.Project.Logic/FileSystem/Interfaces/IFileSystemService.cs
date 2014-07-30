@@ -29,5 +29,13 @@ namespace WLN.Test.Project.Logic.FileSystem.Interfaces
         /// <exception cref="System.IO.IOException"></exception>
         /// <exception cref="System.UnauthorizedAccessException"></exception>
         IEnumerable<DriveInfo> GetDrives();
+
+        /// <exception cref="WLN.Test.Project.Logic.FileSystem.FileSystemServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
+        DirectoryInfo CreateDirectory(string path);
+
+        /// <exception cref="WLN.Test.Project.Logic.FileSystem.FileSystemServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
+        bool DeleteDirectory(string path);
     }
 }

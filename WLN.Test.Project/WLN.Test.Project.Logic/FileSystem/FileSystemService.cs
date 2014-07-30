@@ -14,6 +14,8 @@ namespace WLN.Test.Project.Logic.FileSystem
         /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
         public IEnumerable<DirectoryInfo> GetAllFoldersFromDirectory(string path)
         {
+            ValidatePath(path);
+
             var dir = new DirectoryInfo(path);
 
             if (!dir.Exists)
@@ -34,6 +36,8 @@ namespace WLN.Test.Project.Logic.FileSystem
         /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
         public IEnumerable<FileInfo> GetAllFilesFromDirectory(string path)
         {
+            ValidatePath(path);
+
             var dir = new DirectoryInfo(path);
 
             if (!dir.Exists)
@@ -54,6 +58,8 @@ namespace WLN.Test.Project.Logic.FileSystem
         /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
         public FileInfo GetFileByPath(string path)
         {
+            ValidatePath(path);
+
             var file = new FileInfo(path);
 
             if (!file.Exists)
@@ -68,6 +74,8 @@ namespace WLN.Test.Project.Logic.FileSystem
         /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
         public DirectoryInfo GetDirectoryByPath(string path)
         {
+            ValidatePath(path);
+
             var dir = new DirectoryInfo(path);
 
             if (!dir.Exists)
@@ -84,6 +92,68 @@ namespace WLN.Test.Project.Logic.FileSystem
         {
             var drives = DriveInfo.GetDrives();
             return drives;
+        }
+
+        /// <exception cref="WLN.Test.Project.Logic.FileSystem.FileSystemServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
+        public DirectoryInfo CreateDirectory(string path)
+        {
+            ValidatePath(path);
+
+            var dir = new DirectoryInfo(path);
+            if (!dir.Exists)
+            {
+                try
+                {
+                    dir.Create();
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    throw new FileSystemServiceException(FileSystemError.YouHaventAccessToTheResource);
+                }
+            }
+            return dir;
+        }
+
+        /// <exception cref="WLN.Test.Project.Logic.FileSystem.FileSystemServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
+        public bool DeleteDirectory(string path)
+        {
+            ValidatePath(path);
+
+            var dir = GetDirectoryByPath(path);
+
+            try
+            {
+                dir.Delete();
+                return true;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                throw new FileSystemServiceException(FileSystemError.YouHaventAccessToTheResource);
+            }
+        }
+
+        /// <exception cref="WLN.Test.Project.Logic.FileSystem.FileSystemServiceException"></exception>
+        private bool ValidatePath(string path)
+        {
+            bool bOk = false;
+            try
+            {
+                new System.IO.DirectoryInfo(path);
+                bOk = true;
+            }
+            catch (ArgumentException) { }
+            catch (PathTooLongException) { }
+            catch (NotSupportedException) { }
+            if (!bOk)
+            {
+                throw new FileSystemServiceException(FileSystemError.IncorrectPath);
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }
