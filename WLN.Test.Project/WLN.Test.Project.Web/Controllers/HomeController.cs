@@ -51,12 +51,14 @@ namespace WLN.Test.Project.Web.Controllers
             return null;
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteFolder(string path)
         {
             _fileSystemService.DeleteDirectory(path);
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteFile(string path)
         {
             _fileSystemService.DeleteFile(path);
@@ -64,6 +66,7 @@ namespace WLN.Test.Project.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public ActionResult CreateFileOrFolder(string path)
         {
             var model = new CreateViewModel() { Name = path };
@@ -72,6 +75,7 @@ namespace WLN.Test.Project.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult CreateFileOrFolder(CreateViewModel model)
         {
             if (ModelState.IsValid)
