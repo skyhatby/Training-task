@@ -8,11 +8,12 @@ using System.Web.Security;
 using WLN.Test.Project.Logic.FileSystem.Interfaces;
 using WLN.Test.Project.Logic.Membership.Identity;
 using WLN.Test.Project.Logic.Membership.Intarfaces;
+using WLN.Test.Project.Logic.FileSystem;
 using WLN.Test.Project.Web.Models;
 
 namespace WLN.Test.Project.Web.Controllers
 {
-    [Authorize(Roles="User")]
+    [Authorize(Roles = "User")]
     public class HomeController : Controller
     {
         private IFileSystemService _fileSystemService;
@@ -31,12 +32,12 @@ namespace WLN.Test.Project.Web.Controllers
 
         public PartialViewResult GetListOfDirectoriesPartial(string path)
         {
-            if (!String.IsNullOrEmpty(path)) 
-            { 
-            var model = _fileSystemService.GetAllFoldersFromDirectory(path);
-            var parentFolderAddress = _fileSystemService.GetDirectoryByPath(path).Parent;
-            ViewBag.Parent = parentFolderAddress != null ? parentFolderAddress.FullName : "";
-            return PartialView(model);
+            if (!String.IsNullOrEmpty(path))
+            {
+                var model = _fileSystemService.GetAllFoldersFromDirectory(path);
+                var parentFolderAddress = _fileSystemService.GetDirectoryByPath(path).Parent;
+                ViewBag.Parent = parentFolderAddress != null ? parentFolderAddress.FullName : "";
+                return PartialView(model);
             }
             return null;
         }
@@ -50,7 +51,7 @@ namespace WLN.Test.Project.Web.Controllers
             return null;
         }
 
-        public ActionResult DeleteFolder(string path) 
+        public ActionResult DeleteFolder(string path)
         {
             _fileSystemService.DeleteDirectory(path);
             return RedirectToAction("Index");
@@ -73,15 +74,32 @@ namespace WLN.Test.Project.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateFileOrFolder(CreateViewModel model)
         {
-            if (model.File)
+            if (ModelState.IsValid)
             {
-                _fileSystemService.CreateFile(model.Name);
+                try
+                {
+                    if (model.File)
+                    {
+                        _fileSystemService.CreateFile(model.Name);
+                    }
+                    else
+                    {
+                        if (model.Directory)
+                        {
+                            _fileSystemService.CreateDirectory(model.Name);
+                        }
+                    }
+                    return RedirectToAction("Index");
+                }
+                catch (FileSystemServiceException ex)
+                {
+                    if (ex.Error == FileSystemError.IncorrectPath)
+                        ModelState.AddModelError("","Incorrect Path");
+                    if (ex.Error == FileSystemError.YouHaventAccessToTheResource)
+                        ModelState.AddModelError("", "You Havent Access To The Resource");
+                }
             }
-            if (model.Directory)
-            {
-                _fileSystemService.CreateDirectory(model.Name);
-            }
-            return RedirectToAction("Index");
+            return View(model);
         }
 
         public ActionResult About()
@@ -93,7 +111,7 @@ namespace WLN.Test.Project.Web.Controllers
 
         public ActionResult Contact()
         {
-            
+
             ViewBag.Message = "Your contact page.";
 
             return View();

@@ -6,11 +6,12 @@
 <div class="jumbotron">
     <h1>Explorer</h1>
 </div>
-<div>
+@if (!String.IsNullOrEmpty(ViewBag.CurrentDirectory))
+{
     <a class="btn btn-success" href="@Url.Action("CreateFileOrFolder", "Home", new { path = ViewBag.CurrentDirectory })">
         Create file or folder
     </a>
-</div>
+}
 <div id="drives">
     @foreach (var drive in Model)
     {
