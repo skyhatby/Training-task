@@ -135,6 +135,47 @@ namespace WLN.Test.Project.Logic.FileSystem
         }
 
         /// <exception cref="WLN.Test.Project.Logic.FileSystem.FileSystemServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
+        public FileInfo CreateFile(string path)
+        {
+            ValidatePath(path);
+            var dirPath = Path.GetDirectoryName(path);
+            CreateDirectory(dirPath);
+            var file = new FileInfo(path);
+            if (!file.Exists)
+            {
+                try
+                {
+                    file.Create();
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    throw new FileSystemServiceException(FileSystemError.YouHaventAccessToTheResource);
+                }
+            }
+            return file;
+        }
+
+        /// <exception cref="WLN.Test.Project.Logic.FileSystem.FileSystemServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
+        public bool DeleteFile(string path)
+        {
+            ValidatePath(path);
+
+            var file = GetFileByPath(path);
+
+            try
+            {
+                file.Delete();
+                return true;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                throw new FileSystemServiceException(FileSystemError.YouHaventAccessToTheResource);
+            }
+        }
+
+        /// <exception cref="WLN.Test.Project.Logic.FileSystem.FileSystemServiceException"></exception>
         private bool ValidatePath(string path)
         {
             bool bOk = false;

@@ -37,5 +37,13 @@ namespace WLN.Test.Project.Logic.FileSystem.Interfaces
         /// <exception cref="WLN.Test.Project.Logic.FileSystem.FileSystemServiceException"></exception>
         /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
         bool DeleteDirectory(string path);
+
+        /// <exception cref="WLN.Test.Project.Logic.FileSystem.FileSystemServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
+        FileInfo CreateFile(string path);
+
+        /// <exception cref="WLN.Test.Project.Logic.FileSystem.FileSystemServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
+        bool DeleteFile(string path);
     }
 }
