@@ -56,6 +56,12 @@ namespace WLN.Test.Project.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult DeleteFile(string path)
+        {
+            _fileSystemService.DeleteFile(path);
+            return RedirectToAction("Index");
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

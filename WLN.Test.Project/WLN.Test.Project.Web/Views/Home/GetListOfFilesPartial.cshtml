@@ -3,4 +3,5 @@
 @foreach (var file in Model)
 {
     <h3>@file.Name</h3>
+    <a href="@Url.Action("DeleteFile", "Home", new { path = file.FullName })" class="btn btn-danger"> Delete File </a>
 }
