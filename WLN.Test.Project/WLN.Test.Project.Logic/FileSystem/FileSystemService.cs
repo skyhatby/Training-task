@@ -125,7 +125,7 @@ namespace WLN.Test.Project.Logic.FileSystem
 
             try
             {
-                dir.Delete();
+                dir.Delete(true);
                 return true;
             }
             catch (UnauthorizedAccessException)

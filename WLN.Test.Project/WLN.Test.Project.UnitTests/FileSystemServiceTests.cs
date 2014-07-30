@@ -61,7 +61,7 @@ namespace WLN.Test.Project.UnitTests
         public void DeleteDirectory()
         {
             var c = _fileSystemService.CreateDirectory("C:\\asdf\\asdf");
-            Assert.IsTrue(_fileSystemService.DeleteDirectory(c.FullName));
+            Assert.IsTrue(_fileSystemService.DeleteDirectory(c.Parent.FullName));
         }
 
         [TestMethod]
