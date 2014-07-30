@@ -49,5 +49,19 @@ namespace WLN.Test.Project.UnitTests
             var c = _fileSystemService.GetDrives();
             Assert.IsNotNull(c);
         }
+
+        [TestMethod]
+        public void CreateDirectory()
+        {
+            var c = _fileSystemService.CreateDirectory("C:\\asdf\\asdf");
+            Assert.IsNotNull(c);
+        }
+
+        [TestMethod]
+        public void DeleteDirectory()
+        {
+            var c = _fileSystemService.CreateDirectory("C:\\asdf\\asdf");
+            Assert.IsTrue(_fileSystemService.DeleteDirectory(c.FullName));
+        }
     }
 }
