@@ -139,15 +139,17 @@ namespace WLN.Test.Project.Web.Controllers
                 {
                     try
                     {
-                        if (model.File)
+                        string path = "";
+                        if (model.Directory && !model.File)
                         {
-                            _fileSystemService.CreateFile(model.Path);
+                            path = _fileSystemService.CreateDirectory(model.Path).FullName;
                         }
-                        if (model.Directory)
+                        if (model.File && !model.Directory)
                         {
-                            _fileSystemService.CreateDirectory(model.Path);
+                            path = _fileSystemService.CreateFile(model.Path).Directory.FullName;
                         }
-                        return RedirectToAction("Index", new { path = model.Path });
+                        if (!String.IsNullOrEmpty(path))
+                            return RedirectToAction("Index", new { path = path });
                     }
                     catch (FileSystemServiceException ex)
                     {
@@ -157,7 +159,7 @@ namespace WLN.Test.Project.Web.Controllers
                             ModelState.AddModelError("", "You Havent Access To The Resource");
                     }
                 }
-            ModelState.AddModelError("", "You must choose at least file or folder");
+            ModelState.AddModelError("", "You must choose file or folder");
             return View(model);
         }
 
