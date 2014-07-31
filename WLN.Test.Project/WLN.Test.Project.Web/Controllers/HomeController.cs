@@ -10,6 +10,7 @@ using WLN.Test.Project.Logic.Membership.Identity;
 using WLN.Test.Project.Logic.Membership.Intarfaces;
 using WLN.Test.Project.Logic.FileSystem;
 using WLN.Test.Project.Web.Models;
+using System.IO;
 
 namespace WLN.Test.Project.Web.Controllers
 {
@@ -99,7 +100,7 @@ namespace WLN.Test.Project.Web.Controllers
                     return PartialView("Error", "Incorrect Path");
 
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { path = Path.GetPathRoot(path) });
         }
 
         [Authorize(Roles = "Administrator")]
@@ -118,7 +119,7 @@ namespace WLN.Test.Project.Web.Controllers
                 if (ex.Error == FileSystemError.IncorrectPath)
                     return PartialView("Error", "Incorrect Path");
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { path = Path.GetPathRoot(path) });
         }
 
         [HttpGet]
