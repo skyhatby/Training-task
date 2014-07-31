@@ -25,19 +25,43 @@ namespace WLN.Test.Project.Web.Controllers
 
         public ActionResult Index(string path = "")
         {
-            var drives = _fileSystemService.GetDrives();
-            ViewBag.CurrentDirectory = path;
-            return View(drives);
+            try
+            {
+                var drives = _fileSystemService.GetDrives();
+                ViewBag.CurrentDirectory = path;
+                return View(drives);
+            }
+            catch (FileSystemServiceException ex)
+            {
+                if (ex.Error == FileSystemError.YouHaventAccessToTheResource)
+                    return PartialView("Error", "You Haven't Access To The Resource");
+                if (ex.Error == FileSystemError.UnknownError)
+                    return View("Error", "Unknown Error");
+            }
+            return null;
         }
 
         public PartialViewResult GetListOfDirectoriesPartial(string path)
         {
             if (!String.IsNullOrEmpty(path))
             {
-                var model = _fileSystemService.GetAllFoldersFromDirectory(path);
-                var parentFolderAddress = _fileSystemService.GetDirectoryByPath(path).Parent;
-                ViewBag.Parent = parentFolderAddress != null ? parentFolderAddress.FullName : "";
-                return PartialView(model);
+                try
+                {
+                    var model = _fileSystemService.GetAllFoldersFromDirectory(path);
+                    var parentFolderAddress = _fileSystemService.GetDirectoryByPath(path).Parent;
+                    ViewBag.Parent = parentFolderAddress != null ? parentFolderAddress.FullName : "";
+                    return PartialView(model);
+                }
+                catch (FileSystemServiceException ex)
+                {
+                    if (ex.Error == FileSystemError.YouHaventAccessToTheResource)
+                        return PartialView("Error", "You Haven't Access To The Resource");
+                    if (ex.Error == FileSystemError.DirectoryDoesntExist)
+                        return PartialView("Error", "Directory Doesn't Exist");
+                    if (ex.Error == FileSystemError.IncorrectPath)
+                        return PartialView("Error", "Incorrect Path");
+                }
+
             }
             return null;
         }
@@ -46,7 +70,14 @@ namespace WLN.Test.Project.Web.Controllers
         {
             if (!String.IsNullOrEmpty(path))
             {
-                return PartialView(_fileSystemService.GetAllFilesFromDirectory(path));
+                try
+                {
+                    return PartialView(_fileSystemService.GetAllFilesFromDirectory(path));
+                }
+                catch (FileSystemServiceException)
+                {
+                    return null;
+                }
             }
             return null;
         }
@@ -54,14 +85,39 @@ namespace WLN.Test.Project.Web.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult DeleteFolder(string path)
         {
-            _fileSystemService.DeleteDirectory(path);
+            try
+            {
+                _fileSystemService.DeleteDirectory(path);
+            }
+            catch (FileSystemServiceException ex)
+            {
+                if (ex.Error == FileSystemError.YouHaventAccessToTheResource)
+                    return PartialView("Error", "You Haven't Access To The Resource");
+                if (ex.Error == FileSystemError.DirectoryDoesntExist)
+                    return PartialView("Error", "Directory Doesn't Exist");
+                if (ex.Error == FileSystemError.IncorrectPath)
+                    return PartialView("Error", "Incorrect Path");
+
+            }
             return RedirectToAction("Index");
         }
 
         [Authorize(Roles = "Administrator")]
         public ActionResult DeleteFile(string path)
         {
-            _fileSystemService.DeleteFile(path);
+            try
+            {
+                _fileSystemService.DeleteFile(path);
+            }
+            catch (FileSystemServiceException ex)
+            {
+                if (ex.Error == FileSystemError.YouHaventAccessToTheResource)
+                    return PartialView("Error", "You Haven't Access To The Resource");
+                if (ex.Error == FileSystemError.FileDoesntExists)
+                    return PartialView("Error", "Directory Doesn't Exist");
+                if (ex.Error == FileSystemError.IncorrectPath)
+                    return PartialView("Error", "Incorrect Path");
+            }
             return RedirectToAction("Index");
         }
 
@@ -78,31 +134,30 @@ namespace WLN.Test.Project.Web.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult CreateFileOrFolder(CreateViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                try
+            if (model.File || model.Directory)
+                if (ModelState.IsValid)
                 {
-                    if (model.File)
+                    try
                     {
-                        _fileSystemService.CreateFile(model.Name);
-                    }
-                    else
-                    {
+                        if (model.File)
+                        {
+                            _fileSystemService.CreateFile(model.Name);
+                        }
                         if (model.Directory)
                         {
                             _fileSystemService.CreateDirectory(model.Name);
                         }
+                        return RedirectToAction("Index", new { path = model.Name });
                     }
-                    return RedirectToAction("Index");
+                    catch (FileSystemServiceException ex)
+                    {
+                        if (ex.Error == FileSystemError.IncorrectPath)
+                            ModelState.AddModelError("", "Incorrect Path");
+                        if (ex.Error == FileSystemError.YouHaventAccessToTheResource)
+                            ModelState.AddModelError("", "You Havent Access To The Resource");
+                    }
                 }
-                catch (FileSystemServiceException ex)
-                {
-                    if (ex.Error == FileSystemError.IncorrectPath)
-                        ModelState.AddModelError("","Incorrect Path");
-                    if (ex.Error == FileSystemError.YouHaventAccessToTheResource)
-                        ModelState.AddModelError("", "You Havent Access To The Resource");
-                }
-            }
+            ModelState.AddModelError("", "You must choose at least file or folder");
             return View(model);
         }
 
