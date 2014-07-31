@@ -20,7 +20,7 @@ namespace WLN.Test.Project.Logic.FileSystem
 
             if (!dir.Exists)
             {
-                throw new FileSystemServiceException(FileSystemError.DirectoryDoesntExists);
+                throw new FileSystemServiceException(FileSystemError.DirectoryDoesntExist);
             }
             try
             {
@@ -42,7 +42,7 @@ namespace WLN.Test.Project.Logic.FileSystem
 
             if (!dir.Exists)
             {
-                throw new FileSystemServiceException(FileSystemError.DirectoryDoesntExists);
+                throw new FileSystemServiceException(FileSystemError.DirectoryDoesntExist);
             }
             try
             {
@@ -80,18 +80,29 @@ namespace WLN.Test.Project.Logic.FileSystem
 
             if (!dir.Exists)
             {
-                throw new FileSystemServiceException(FileSystemError.DirectoryDoesntExists);
+                throw new FileSystemServiceException(FileSystemError.DirectoryDoesntExist);
             }
 
             return dir;
         }
 
-        /// <exception cref="System.IO.IOException"></exception>
-        /// <exception cref="System.UnauthorizedAccessException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.FileSystem.FileSystemServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
         public IEnumerable<DriveInfo> GetDrives()
         {
-            var drives = DriveInfo.GetDrives();
-            return drives;
+            try
+            {
+                var drives = DriveInfo.GetDrives();
+                return drives;
+            }
+            catch (IOException)
+            {
+                throw new FileSystemServiceException(FileSystemError.UnknownError);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                throw new FileSystemServiceException(FileSystemError.YouHaventAccessToTheResource);
+            }
         }
 
         /// <exception cref="WLN.Test.Project.Logic.FileSystem.FileSystemServiceException"></exception>

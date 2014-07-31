@@ -26,8 +26,8 @@ namespace WLN.Test.Project.Logic.FileSystem.Interfaces
         /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
         DirectoryInfo GetDirectoryByPath(string path);
 
-        /// <exception cref="System.IO.IOException"></exception>
-        /// <exception cref="System.UnauthorizedAccessException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.FileSystem.FileSystemServiceException"></exception>
+        /// <exception cref="WLN.Test.Project.Logic.Common.ServiceException"></exception>
         IEnumerable<DriveInfo> GetDrives();
 
         /// <exception cref="WLN.Test.Project.Logic.FileSystem.FileSystemServiceException"></exception>
