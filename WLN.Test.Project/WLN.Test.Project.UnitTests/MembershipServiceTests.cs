@@ -16,6 +16,14 @@ namespace WLN.Test.Project.UnitTests
         }
 
         [TestMethod]
+        public void CheckIfUserRolesHasAdminRole()
+        {
+            var role = _membershipService.GetUserRoles(1);
+            var b = role[0];
+            Assert.AreEqual(b, "Administrator");
+        }
+
+        [TestMethod]
         public void GetRole()
         {
             var role = _membershipService.GetRoleByName("Administrator");
@@ -46,14 +54,6 @@ namespace WLN.Test.Project.UnitTests
             _membershipService.ResetPassword(name);
             var pass2 = _membershipService.GetUserByName(name).Password;
             Assert.AreNotEqual(pass1, pass2);
-        }
-
-        [TestMethod]
-        public void CheckIfUserRolesHasAdminRole()
-        {
-            var role = _membershipService.GetUserRoles(1);
-            var b = role[0];
-            Assert.AreEqual(b, "Administrator");
         }
     }
 }
