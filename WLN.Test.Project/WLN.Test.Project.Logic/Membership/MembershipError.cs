@@ -12,6 +12,7 @@ namespace WLN.Test.Project.Logic.Membership
         UserIsAlreadyRegistered,
         UserDoesNotExist,
         RoleDoesNotExist,
+        NameOrPasswordMustBeNotNull,
         UnknownError
     }
 }
