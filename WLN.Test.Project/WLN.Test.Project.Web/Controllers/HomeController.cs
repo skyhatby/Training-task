@@ -125,7 +125,7 @@ namespace WLN.Test.Project.Web.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult CreateFileOrFolder(string path)
         {
-            var model = new CreateViewModel() { Name = path };
+            var model = new CreateViewModel() { Path = path };
             return View(model);
         }
 
@@ -141,13 +141,13 @@ namespace WLN.Test.Project.Web.Controllers
                     {
                         if (model.File)
                         {
-                            _fileSystemService.CreateFile(model.Name);
+                            _fileSystemService.CreateFile(model.Path);
                         }
                         if (model.Directory)
                         {
-                            _fileSystemService.CreateDirectory(model.Name);
+                            _fileSystemService.CreateDirectory(model.Path);
                         }
-                        return RedirectToAction("Index", new { path = model.Name });
+                        return RedirectToAction("Index", new { path = model.Path });
                     }
                     catch (FileSystemServiceException ex)
                     {
