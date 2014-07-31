@@ -9,6 +9,7 @@ using WLN.Test.Project.Logic.Membership.Identity;
 using WLN.Test.Project.Logic.Membership.Intarfaces;
 using WLN.Test.Project.Web.Models;
 using WLN.Test.Project.Logic.Membership;
+using WLN.Test.Project.Model.Exceptions;
 
 namespace WLN.Test.Project.Web.Controllers
 {
@@ -36,25 +37,31 @@ namespace WLN.Test.Project.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _membershipService.GetUserByName(model.UserName);
-
-                if (user != null && user.VerifyPassword(model.Password))
+                try
                 {
-                    var ui = new UserInfo { UserId = user.Id };
-                    var t = new FormsAuthenticationTicket(1, model.UserName, DateTime.Now, DateTime.Now.AddHours(1),
-                        model.RememberMe, ui.ToString());
-                    var s = FormsAuthentication.Encrypt(t);
-                    var c = new HttpCookie("asdf", s);
-                    Response.Cookies.Add(c);
-                    if (String.IsNullOrEmpty(returnUrl))
+                    var user = _membershipService.GetUserByName(model.UserName);
+                    if (user != null && user.VerifyPassword(model.Password))
                     {
-                        return RedirectToAction("Index", "Home");
+                        var ui = new UserInfo { UserId = user.Id };
+                        var t = new FormsAuthenticationTicket(1, model.UserName, DateTime.Now, DateTime.Now.AddHours(1),
+                            model.RememberMe, ui.ToString());
+                        var s = FormsAuthentication.Encrypt(t);
+                        var c = new HttpCookie("asdf", s);
+                        Response.Cookies.Add(c);
+                        if (String.IsNullOrEmpty(returnUrl))
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                        return Redirect(returnUrl);
                     }
-                    return Redirect(returnUrl);
+                    else
+                    {
+                        ModelState.AddModelError("", "Invalid username or password.");
+                    }
                 }
-                else
+                catch (ServiceException ex)
                 {
-                    ModelState.AddModelError("", "Invalid username or password.");
+                    ModelState.AddModelError("", ex.Message);
                 }
             }
 
@@ -90,7 +97,7 @@ namespace WLN.Test.Project.Web.Controllers
                     }
                     if (ex.Error == MembershipError.UnknownError)
                     {
-                        ModelState.AddModelError("", "UnknownError");
+                        ModelState.AddModelError("", "Unknown Error");
                         return View(model);
                     }
                 }
@@ -104,8 +111,8 @@ namespace WLN.Test.Project.Web.Controllers
         public ActionResult LogOut()
         {
             var authCookie = new HttpCookie("asdf");
-                authCookie.Expires = DateTime.Now.AddDays(-1d);
-                HttpContext.Response.Cookies.Add(authCookie);
+            authCookie.Expires = DateTime.Now.AddDays(-1d);
+            HttpContext.Response.Cookies.Add(authCookie);
             return RedirectToAction("Index", "Home");
         }
     }
